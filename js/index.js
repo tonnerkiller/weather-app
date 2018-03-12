@@ -1,7 +1,7 @@
 var test = false;
 var geo_options = {
-  enableHighAccuracy: true, 
-  maximumAge        : 30000, 
+  enableHighAccuracy: true,
+  maximumAge        : 30000,
   timeout           : 27000
 };
 var fallbackWeather = {
@@ -52,7 +52,7 @@ var fallbackWeather = {
 function updatePage(data){
   $('#place').html(data['name']);
   $('#icon').html('<img src='+data['weather'][0]['icon'] +' alt="icon"/>');
-  $('#temp').html(data['main']['temp']+"°K");
+  $('#temp').html(data['main']['temp']+"°C");
   console.log(data['weather']);
 };
 
