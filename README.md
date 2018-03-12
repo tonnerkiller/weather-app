@@ -1,3 +1,7 @@
-A Pen created at CodePen.io. You can find this one at https://codepen.io/tonnerkiller/pen/EQLZOK.
+This started as a CodePen pen, see earlier version here: 
+https://codepen.io/tonnerkiller/pen/EQLZOK
+
+This is my take on the weather-app challenge of freecodecamp.org's. The 
+plan is to add some more functionality.
 
  
