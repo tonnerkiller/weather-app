@@ -2,7 +2,7 @@
 This is my take on the weather-app challenge of freecodecamp.org's. The
 plan is to add some more functionality.
 
-See the app live on: https://tonnerkiller.de/weather.app/
+See the app live on: https://tonnerkiller.de/weather-app/
 
 You will have to add an exception to your browser, as I have a custom
 github page and the ssl only works for *.github.io pages.
