@@ -1,0 +1,44 @@
+html{
+  background:lightblue;
+  background-attachment:fixed;
+}
+
+
+body{
+  background:transparent;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction:column;
+}
+
+h1{
+  display:flex;
+  align-self: center;
+  font-family: 'Lobster', cursive;
+}
+
+#app{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-direction:row;
+  font-family:courier;
+}
+
+#box{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-direction:column;
+}
+
+#app-creator{
+  display:flex;
+  font-size: 10px;
+  font-family: 'Gloria Hallelujah', cursive;
+  color: black;
+  transform: rotate(-90deg);
+  transform-origin: top right;
+  margin-right: 1.5em;
+}
