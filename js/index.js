@@ -69,7 +69,7 @@ var weatherApiNumber=0;
 
 var weatherApiArray = [
   {
-    copyright:"weather data retrieved from the FCC Weather API",
+    copyright:"weather data retrieved from the <a href='https://fcc-weather-api.glitch.me/'>FCC Weather API</a>",
     link:function(latitude, longitude){
           return "https://fcc-weather-api.glitch.me/api/current?lat="+latitude+"&lon="+longitude;
         },
