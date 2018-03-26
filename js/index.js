@@ -49,6 +49,22 @@ var fallbackWeather = {
     "cod": 200
 }
 
+var weatherData ={
+  set:function(acity, acountry, anicon, degrees,crnotice){
+        this.city=acity;
+        this.country=acountry;
+        this.icon=anicon;
+        this.kelvin=degrees;
+        this.copyright=crnotice;
+        updatePage();
+      },
+  city:"",
+  country:"",
+  icon:"",
+  kelvin:"",
+  copyright:""
+}
+
 var weatherApiNumber=0;
 
 var weatherApiArray = [
@@ -59,37 +75,24 @@ var weatherApiArray = [
         },
     normalize:function(data){
           weatherData.set(data['name'],
-                          data['sys']['contry'],
+                          data['sys']['country'],
                           data['weather'][0]['icon'],
                           Number(data['main']['temp'])+273.15,
-                          copyright);
+                          weatherApiArray[weatherApiNumber].copyright);
+          console.log("inside normalize: "+data['name']+" : "+weatherData.city);
         },
     },
 ]
 
 
-var weatherData ={
-  set:function(acity, acountry, anicon, degrees,crnotice){
-        city=acity;
-        country=acountry;
-        icon=anicon;
-        kelvin=degrees;
-        copyright=crnotice;
-        updatePage();
-      },
-  city:"",
-  country:"",
-  icon:"",
-  kelvin:"",
-  copyright:""
-}
+
 
 function updatePage(){
   $('#place').html(weatherData['city']+", "+weatherData['country']);
   $('#icon').html('<img src='+weatherData['icon'] +' alt="icon"/>');
   $('#temp').html(weatherData['kelvin']+"°K");
   $('#copyright').html(weatherData['copyright']);
-  console.log(data['weather']);
+  console.log(weatherData);
 };
 
 function retrieve(){
