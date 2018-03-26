@@ -59,7 +59,7 @@ var weatherApiArray = [
         },
     normalize:function(data){
           weatherData.set(data['name'],
-                          data.['sys']['contry'],
+                          data['sys']['contry'],
                           data['weather'][0]['icon'],
                           Number(data['main']['temp'])+273.15,
                           copyright);
