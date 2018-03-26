@@ -76,7 +76,7 @@ var weatherData ={
         kelvin=degrees;
         copyright=crnotice;
         updatePage();
-      }
+      },
   city:"",
   country:"",
   icon:"",
