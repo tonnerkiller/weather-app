@@ -49,29 +49,65 @@ var fallbackWeather = {
     "cod": 200
 }
 
-function updatePage(data){
-  $('#place').html(data['name']);
-  $('#icon').html('<img src='+data['weather'][0]['icon'] +' alt="icon"/>');
-  $('#temp').html(data['main']['temp']+"°C");
+var weatherApiNumber=0;
+
+var weatherApiArray = [
+  {
+    copyright:"weather data retrieved from the FCC Weather API",
+    link:function(latitude, longitude){
+          return "https://fcc-weather-api.glitch.me/api/current?lat="+latitude+"&lon="+longitude;
+        },
+    normalize:function(data){
+          weatherData.set(data['name'],
+                          data.['sys']['contry'],
+                          data['weather'][0]['icon'],
+                          Number(data['main']['temp'])+273.15,
+                          copyright);
+        },
+    },
+]
+
+
+var weatherData ={
+  set:function(acity, acountry, anicon, degrees,crnotice){
+        city=acity;
+        country=acountry;
+        icon=anicon;
+        kelvin=degrees;
+        copyright=crnotice;
+        updatePage();
+      }
+  city:"",
+  country:"",
+  icon:"",
+  kelvin:"",
+  copyright:""
+}
+
+function updatePage(){
+  $('#place').html(weatherData['city']+", "+weatherData['country']);
+  $('#icon').html('<img src='+weatherData['icon'] +' alt="icon"/>');
+  $('#temp').html(weatherData['kelvin']+"°K");
+  $('#copyright').html(weatherData['copyright']);
   console.log(data['weather']);
 };
 
-function retrievePosition(){
+function retrieve(){
   if ("geolocation" in navigator) {
     /* geolocation is available */
-    navigator.geolocation.getCurrentPosition(function(position){
-      retrieveWeather(position.coords.latitude, position.coords.longitude);
-    },errorCallback,geo_options);
+    watchID = navigator.geolocation.watchPosition(geo_success,geo_error,geo_options);
   } else {
-    console.log("geolocation not available");
+    /*geolocation is not available*/
+    console.log("Geolocation is not supported by your browser.");
   }
 };
-function retrieveWeather(latitude, longitude){
-  //JSON(position,function{updatePage})
-  $.getJSON("https://fcc-weather-api.glitch.me/api/current?lat="+latitude+"&lon="+longitude, updatePage);
-};
 
-function errorCallback(error) {
+
+function geo_success(position){
+  $.getJSON(weatherApiArray[weatherApiNumber].link(position.coords.latitude,position.coords.longitude), weatherApiArray[weatherApiNumber].normalize);
+}
+
+function geo_error(error) {
   alert('ERROR(' + error.code + '): ' + error.message);
 };
 
@@ -80,6 +116,6 @@ $("document").ready(function(){
   if (test) {
     updatePage(fallbackWeather);
   } else {
-    retrievePosition();
+    retrieve();
   }
 });
