@@ -116,7 +116,7 @@ function updateWeather(latitude, longitude){
 
 function geo_success(position){
   if (actualPosition == position){
-    if (Date.now()-starttime>=600000){ //if 10 minutes or more passed
+    if ((Date.now()-starttime)>=600000){ //if 10 minutes or more passed
       updateWeather(position.coords.latitude,position.coords.longitude);
     }
   } else{
