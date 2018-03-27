@@ -84,7 +84,6 @@ var weatherApiArray = [
                           data['weather'][0]['icon'],
                           Number(data['main']['temp'])+273.15,
                           weatherApiArray[weatherApiNumber].copyright);
-          console.log("inside normalize: "+data['name']+" : "+weatherData.city);
         },
     },
 ]
@@ -97,7 +96,6 @@ function updatePage(){
   $('#icon').html('<img src='+weatherData['icon'] +' alt="icon"/>');
   $('#temp').html(weatherData['kelvin']+"°K");
   $('#copyright').html(weatherData['copyright']);
-  console.log(weatherData);
 };
 
 function retrieve(){
@@ -111,6 +109,7 @@ function retrieve(){
 };
 
 function updateWeather(latitude, longitude){
+  console.log("Latitude: "+latitude+"");
   $.getJSON(weatherApiArray[weatherApiNumber].link(latitude, longitude), weatherApiArray[weatherApiNumber].normalize);
   starttime = Date.now();
 }
