@@ -1,4 +1,9 @@
 var test = false;
+
+var starttime = Date.now();
+
+var actualPosition = "";
+
 var geo_options = {
   enableHighAccuracy: true,
   maximumAge        : 30000,
@@ -105,9 +110,20 @@ function retrieve(){
   }
 };
 
+function updateWeather(latitude, longitude){
+  $.getJSON(weatherApiArray[weatherApiNumber].link(latitude, longitude), weatherApiArray[weatherApiNumber].normalize);
+  starttime = Date.now();
+}
 
 function geo_success(position){
-  $.getJSON(weatherApiArray[weatherApiNumber].link(position.coords.latitude,position.coords.longitude), weatherApiArray[weatherApiNumber].normalize);
+  if (actualPosition == position){
+    if (Date.now()-starttime>=600000){ //if 10 minutes or more passed
+      updateWeather(position.coords.latitude,position.coords.longitude);
+    }
+  } else{
+    actualPosition = position;
+    updateWeather(position.coords.latitude,position.coords.longitude);
+  }
 }
 
 function geo_error(error) {
