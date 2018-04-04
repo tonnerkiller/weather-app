@@ -109,17 +109,20 @@ function retrieve(){
 };
 
 function updateWeather(latitude, longitude){
-  console.log("Latitude: "+latitude+"");
   $.getJSON(weatherApiArray[weatherApiNumber].link(latitude, longitude), weatherApiArray[weatherApiNumber].normalize);
   starttime = Date.now();
 }
 
 function geo_success(position){
-  if (actualPosition == position){
+  if ((actualPosition != "")&&((actualPosition.coords.latitude  == position.coords.latitude) &&
+      (actualPosition.coords.longitude == position.coords.longitude))){
+    console.log("Geo_Success: Position hat sich nicht geändert: "+position.coords.latitude.toString()+":"+position.coords.longitude.toString());
     if (Date.now()-starttime>=600000){ //if 10 minutes or more passed
+      console.log("Geo_Success: mehr als zehn Minuten vergangen.")
       updateWeather(position.coords.latitude,position.coords.longitude);
     }
   } else{
+    console.log("Position hat sich geändert");
     actualPosition = position;
     updateWeather(position.coords.latitude,position.coords.longitude);
   }
