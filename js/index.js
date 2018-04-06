@@ -116,13 +116,13 @@ function updateWeather(latitude, longitude){
 function geo_success(position){
   if ((actualPosition != "")&&((actualPosition.coords.latitude  == position.coords.latitude) &&
       (actualPosition.coords.longitude == position.coords.longitude))){
-    console.log("Geo_Success: Position hat sich nicht geändert: "+position.coords.latitude.toString()+":"+position.coords.longitude.toString());
+    console.log("Geo_Success: Position not changed: "+position.coords.latitude.toString()+":"+position.coords.longitude.toString());
     if (Date.now()-starttime>=600000){ //if 10 minutes or more passed
-      console.log("Geo_Success: mehr als zehn Minuten vergangen.")
+      console.log("Geo_Success: morethan 10 minutes have passed.")
       updateWeather(position.coords.latitude,position.coords.longitude);
     }
   } else{
-    console.log("Position hat sich geändert");
+    console.log("Position changed");
     actualPosition = position;
     updateWeather(position.coords.latitude,position.coords.longitude);
   }
