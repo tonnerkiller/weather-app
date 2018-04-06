@@ -88,7 +88,57 @@ var weatherApiArray = [
     },
 ]
 
+var tempScaleNumber=0;
 
+var tempScaleArray= [{
+  name: "Kelvin",
+  sign: "°K",
+  degrees:function(degK,id){
+            document.getElementById(id).html(degK);
+  }
+},{
+  name: "Celsius",
+  sign: "°C",
+  degrees:function(degK,id){
+            document.getElementById(id).html(degK-273.15);
+  }
+},{
+  name: "Réaumur",
+  sign: "°Ré",
+  degrees:function(degK,id){
+            document.getElementById(id).html((degK-273.15)*0.8);
+  }
+},{
+  name: "Fahrenheit",
+  sign: "°F",
+  degrees:function(degK,id){
+            document.getElementById(id).html(degK*1.8-459.67);
+  }
+},{
+  name: "Rankine",
+  sign: "°Ra",
+  degrees:function(degK,id){
+            document.getElementById(id).html(degK*1.8);
+  }
+},{
+  name: "Rømer",
+  sign: "°Rø",
+  degrees:function(degK,id){
+            document.getElementById(id).html((degK-273.15)*21/40+7.5);
+  }
+},{
+  name: "Delisle",
+  sign: "°De",
+  degrees:function(degK,id){
+            document.getElementById(id).html((373.15-degK)*1.5);
+  }
+},{
+  name: "Newton",
+  sign: "°Rø",
+  degrees:function(degK,id){
+            document.getElementById(id).html((degK-273.15)*0.33);
+  }
+}]
 
 
 function updatePage(){
