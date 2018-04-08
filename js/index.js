@@ -144,7 +144,8 @@ var tempScaleArray= [{
 function updatePage(){
   $('#place').html(weatherData['city']+", "+weatherData['country']);
   $('#icon').html('<img src='+weatherData['icon'] +' alt="icon"/>');
-  $('#temp').html(weatherData['kelvin']+"°K");
+  $('#deg').html(tempScaleArray[1].degrees(weatherData['kelvin']));
+  $('#unit').html('°C');
   $('#copyright').html(weatherData['copyright']);
 };
 
