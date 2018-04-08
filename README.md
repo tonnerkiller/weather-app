@@ -1,6 +1,6 @@
 
 This is my take on the weather-app challenge of freecodecamp.org's. The
-plan is to add some more functionality.
+plan is to add some more functionality like choice of different APIs for weather data or additional temperature scales.
 
 See the app live on: https://tonnerkiller.de/weather-app/
 
