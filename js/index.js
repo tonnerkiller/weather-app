@@ -106,7 +106,7 @@ var tempScaleArray= [{
   name: "Réaumur",
   sign: "°Ré",
   degrees:function(degK){
-            return (degK-273.15)*0.8);
+            return ((degK-273.15)*0.8);
   }
 },{
   name: "Fahrenheit",
