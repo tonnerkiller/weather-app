@@ -4,6 +4,11 @@ var starttime = Date.now();
 
 var actualPosition = "";
 
+function precisionRound(number, precision) {
+  var factor = Math.pow(10, precision);
+  return Math.round(number * factor) / factor;
+}
+
 var geo_options = {
   enableHighAccuracy: true,
   maximumAge        : 30000,
@@ -144,7 +149,8 @@ var tempScaleArray= [{
 function updatePage(){
   $('#place').html(weatherData['city']+", "+weatherData['country']);
   $('#icon').html('<img src='+weatherData['icon'] +' alt="icon"/>');
-  $('#deg').html(tempScaleArray[1].degrees(weatherData['kelvin']));
+  $('#deg').html(precisionRound(tempScaleArray[1].degrees(weatherData['kelvin']),2));
+  console.log(precisionRound(weatherData['kelvin'],2));
   $('#unit').html('°C');
   $('#copyright').html(weatherData['copyright']);
 };
