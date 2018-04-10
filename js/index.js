@@ -14,6 +14,8 @@ var geo_options = {
   maximumAge        : 30000,
   timeout           : 27000
 };
+
+/*fallback Weather is not at this moment used but remains for case of future test runs*/
 var fallbackWeather = {
     "coord": {
         "lon": -0.13,
@@ -66,7 +68,7 @@ var weatherData ={
         this.icon=anicon;
         this.kelvin=degrees;
         this.copyright=crnotice;
-        updatePage();
+        updatePage(tempScaleNumber);
       },
   city:"",
   country:"",
@@ -93,11 +95,11 @@ var weatherApiArray = [
     },
 ]
 
-var tempScaleNumber=0;
+var tempScaleNumber=1;
 
 var tempScaleArray= [{
   name: "Kelvin",
-  sign: "°K",
+  sign: "K",
   degrees:function(degK){
             return (degK);
   }
@@ -139,21 +141,66 @@ var tempScaleArray= [{
   }
 },{
   name: "Newton",
-  sign: "°Rø",
+  sign: "°N",
   degrees:function(degK){
             return ((degK-273.15)*0.33);
   }
 }]
 
 
-function updatePage(){
+function updatePage(tsIndex){
   $('#place').html(weatherData['city']+", "+weatherData['country']);
   $('#icon').html('<img src='+weatherData['icon'] +' alt="icon"/>');
-  $('#deg').html(precisionRound(tempScaleArray[1].degrees(weatherData['kelvin']),2));
+  $('#deg').html(precisionRound(tempScaleArray[tsIndex].degrees(weatherData['kelvin']),2));
   console.log(precisionRound(weatherData['kelvin'],2));
-  $('#unit').html('°C');
+  $('#unit').html(tempScaleArray[tsIndex].sign);
   $('#copyright').html(weatherData['copyright']);
+  drawScaleDropdown(tempScaleArray);
+  console.log("foo");
 };
+
+function scaleChangeCallback(i){
+  console.log("value of i: "+i);
+  /*tempScaleNumber = i;
+  updatePage(tempScaleNumber);*/
+}
+
+var scaleObject = function(x){
+  this.scaleChange = function(){
+    tempScaleNumber = x;
+    updatePage(tempScaleNumber);
+  }
+}
+
+function drawScaleDropdown(tsArray){
+  if (!document.getElementById("myDropdown").hasChildNodes()){
+    for (var i=0; i<tsArray.length; i++){
+      var a = document.createElement('a');
+      document.getElementById("myDropdown").append(a);
+      a.href="#";
+      a.id=tsArray[i].name;
+      $("#"+tsArray[i].name).html(tsArray[i].name+"</br>");
+      /*console.log(tsArray[i].sign);
+      console.log(a.innerText);*/
+    /*var o = {
+      tsNumber: i,
+      scaleChange: function(){
+        alert("Value of i inside scaleChance: "+i);
+        tempScaleNumber = tsNumber;
+        updatePage(tempScaleNumber);
+      }
+    }*/
+    /*text=text+"<a href='http://tonnerkiller.de' id='"+tsArray[i].name+"'>"+tsArray[i].sign+"</a>"*/
+      var o = new scaleObject(i);
+      document.getElementById(tsArray[i].name).onclick = o.scaleChange;
+    }
+  }
+  /*$('#myDropdown').html(text);*/
+  return false;
+}
+
+
+
 
 function retrieve(){
   if ("geolocation" in navigator) {
@@ -166,6 +213,7 @@ function retrieve(){
 };
 
 function updateWeather(latitude, longitude){
+  /*here is the place to check for testrun and use fallbackweather if demanded -> not implemented at this time */
   $.getJSON(weatherApiArray[weatherApiNumber].link(latitude, longitude), weatherApiArray[weatherApiNumber].normalize);
   starttime = Date.now();
 }
@@ -192,7 +240,7 @@ function geo_error(error) {
 
 $("document").ready(function(){
   if (test) {
-    updatePage(fallbackWeather);
+    updatePage();
   } else {
     retrieve();
   }
