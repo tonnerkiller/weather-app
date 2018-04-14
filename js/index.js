@@ -15,27 +15,6 @@ var geo_options = {
   timeout           : 27000
 };
 
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-
 /*fallback Weather is not at this moment used but remains for case of future test runs*/
 var fallbackWeather = {
     "coord": {
@@ -174,17 +153,9 @@ function updatePage(tsIndex){
   $('#icon').html('<img src='+weatherData['icon'] +' alt="icon"/>');
   $('#deg').html(precisionRound(tempScaleArray[tsIndex].degrees(weatherData['kelvin']),2));
   console.log(precisionRound(weatherData['kelvin'],2));
-  $('#unit').html(tempScaleArray[tsIndex].sign);
   $('#copyright').html(weatherData['copyright']);
   drawScaleDropdown(tempScaleArray);
-  console.log("foo");
 };
-
-function scaleChangeCallback(i){
-  console.log("value of i: "+i);
-  /*tempScaleNumber = i;
-  updatePage(tempScaleNumber);*/
-}
 
 var scaleObject = function(x){
   this.scaleChange = function(){
@@ -196,18 +167,19 @@ var scaleObject = function(x){
 function drawScaleDropdown(tsArray){
   if (!document.getElementById("myDropdown").hasChildNodes()){
     for (var i=0; i<tsArray.length; i++){
-      var a = document.createElement('button');
+      var a = document.createElement('option');
       document.getElementById("myDropdown").append(a);
-      a.href="#";
+      /*a.href="#";*/
       a.id=tsArray[i].name;
-      $("#"+tsArray[i].name).html(tsArray[i].name);
+      a.title=tsArray[i].name;
+      if (i==tempScaleNumber) {a.selected="selected";};
+      $("#"+tsArray[i].name).html(tsArray[i].sign);
       var o = new scaleObject(i);
       document.getElementById(tsArray[i].name).onclick = o.scaleChange;
-      var b = document.createElement('br');
-      document.getElementById("myDropdown").append(b);
+      /*var b = document.createElement('br');
+      document.getElementById("myDropdown").append(b);*/
     }
   }
-  /*$('#myDropdown').html(text);*/
   return false;
 }
 
