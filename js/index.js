@@ -175,24 +175,15 @@ var scaleObject = function(x){
 function drawScaleDropdown(tsArray){
   if (!document.getElementById("myDropdown").hasChildNodes()){
     for (var i=0; i<tsArray.length; i++){
-      var a = document.createElement('a');
+      var a = document.createElement('button');
       document.getElementById("myDropdown").append(a);
       a.href="#";
       a.id=tsArray[i].name;
-      $("#"+tsArray[i].name).html(tsArray[i].name+"</br>");
-      /*console.log(tsArray[i].sign);
-      console.log(a.innerText);*/
-    /*var o = {
-      tsNumber: i,
-      scaleChange: function(){
-        alert("Value of i inside scaleChance: "+i);
-        tempScaleNumber = tsNumber;
-        updatePage(tempScaleNumber);
-      }
-    }*/
-    /*text=text+"<a href='http://tonnerkiller.de' id='"+tsArray[i].name+"'>"+tsArray[i].sign+"</a>"*/
+      $("#"+tsArray[i].name).html(tsArray[i].name);
       var o = new scaleObject(i);
       document.getElementById(tsArray[i].name).onclick = o.scaleChange;
+      var b = document.createElement('br');
+      document.getElementById("myDropdown").append(b);
     }
   }
   /*$('#myDropdown').html(text);*/
