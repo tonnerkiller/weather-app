@@ -3,7 +3,6 @@ html{
   background-attachment:fixed;
 }
 
-
 body{
   background:transparent;
   display: flex;
@@ -31,6 +30,10 @@ h1{
   align-items:center;
   justify-content:space-between;
   flex-direction:column;
+}
+
+#mydropdown{
+  background:transparent;
 }
 
 #app-creator{

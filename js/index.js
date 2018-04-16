@@ -151,16 +151,19 @@ var tempScaleArray= [{
 function updatePage(tsIndex){
   $('#place').html(weatherData['city']+", "+weatherData['country']);
   $('#icon').html('<img src='+weatherData['icon'] +' alt="icon"/>');
-  $('#deg').html(precisionRound(tempScaleArray[tsIndex].degrees(weatherData['kelvin']),2));
-  console.log(precisionRound(weatherData['kelvin'],2));
   $('#copyright').html(weatherData['copyright']);
-  drawScaleDropdown(tempScaleArray);
+  updateTemp(tsIndex);
 };
+
+function updateTemp(tsIndex){
+  $('#deg').html(precisionRound(tempScaleArray[tsIndex].degrees(weatherData['kelvin']),2));
+  drawScaleDropdown(tempScaleArray);
+}
 
 var scaleObject = function(x){
   this.scaleChange = function(){
     tempScaleNumber = x;
-    updatePage(tempScaleNumber);
+    updateTemp(tempScaleNumber);
   }
 }
 
@@ -207,7 +210,7 @@ function geo_success(position){
       (actualPosition.coords.longitude == position.coords.longitude))){
     console.log("Geo_Success: Position not changed: "+position.coords.latitude.toString()+":"+position.coords.longitude.toString());
     if (Date.now()-starttime>=600000){ //if 10 minutes or more passed
-      console.log("Geo_Success: morethan 10 minutes have passed.")
+      console.log("Geo_Success: more than 10 minutes have passed.")
       updateWeather(position.coords.latitude,position.coords.longitude);
     }
   } else{
